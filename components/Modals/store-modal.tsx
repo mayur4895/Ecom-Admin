@@ -28,14 +28,18 @@ const formSchema = z.object({
   }),
 })
 
-import { UseModalStore } from "@/hooks/use-modal-store";
+ 
 import React, { useState } from "react";
 import Modal from "../ui/modal";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/hooks/use-modal-store";
 
 const StoreModal = () => {
-  const { onOpen, isOpen, onClose } = UseModalStore();
+  const { onOpen, isOpen, onClose, type} = useModal();
+  
+  const isModalOpen =  isOpen  &&  type === "CreateStore"
+
   const router = useRouter();
   const { toast } = useToast()
  const [IsLoading ,setIsLoading] = useState(false);
@@ -53,13 +57,13 @@ const StoreModal = () => {
   const res =  await axios.post("/api/stores", values);
   form.reset();
    toast({
-    variant:"default",
+    variant:"success",
     title:"Store is Created"
    })
   window.location.assign(`/${res.data.id}`) 
   } catch (error) {
   toast({
-    variant:"destructive",
+    variant:"danger",
     title:"Something went wrong"
   })
   setIsLoading(false)
@@ -70,7 +74,7 @@ const StoreModal = () => {
  }
   }
   return (
-    <Modal title="Create Your Store" isOpen={isOpen} onClose={onClose} description="Add New Store to manage products and categories">
+    <Modal title="Create Your Store" isOpen={isModalOpen} onClose={onClose} description="Add New Store to manage products and categories">
       <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
@@ -90,8 +94,8 @@ const StoreModal = () => {
           )}
         />
       <div className=" flex justify-end  space-x-2">
-        <Button variant="outline" onClick={onClose}>Cancel</Button>
-         <Button type="submit">{IsLoading ? "Loadding..." :"Continue"} </Button>
+        <Button variant="outline" disabled={IsLoading} onClick={onClose}>Cancel</Button>
+         <Button type="submit" disabled={IsLoading}>{IsLoading ? "Loadding..." :"Continue"} </Button>
       </div>
       </form>
     </Form>

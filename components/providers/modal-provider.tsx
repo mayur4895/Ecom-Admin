@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import StoreModal from '../Modals/store-modal'
+import AlertDilog from '../Modals/alert-moal';
 
 const ModalProvider = () => {
 
@@ -16,6 +17,7 @@ useEffect(() =>{
 
   return (
   <StoreModal/>
+
   )
 }
 

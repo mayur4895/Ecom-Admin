@@ -1,17 +1,17 @@
 'use client'
 import StoreModal from '@/components/Modals/store-modal'
 import Modal from '@/components/ui/modal'
-import { UseModalStore } from '@/hooks/use-modal-store'
+import {  useModal } from '@/hooks/use-modal-store'
 import React, { useEffect, useState } from 'react'
 
 const Setuppage = () => {
 
-    const {onOpen,isOpen} = UseModalStore();
+    const {onOpen,isOpen} = useModal();
   
 
  useEffect(()=>{
     if(!isOpen){
-        onOpen();
+        onOpen("CreateStore");
     }
  },[onOpen,isOpen])
 

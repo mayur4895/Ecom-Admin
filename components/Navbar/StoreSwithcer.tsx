@@ -19,8 +19,7 @@ import {
   
 import { Button } from '../ui/button'
 import { AiTwotoneShop } from "react-icons/ai";
-import { store } from '@prisma/client'
-import { UseModalStore } from '@/hooks/use-modal-store'
+import { store } from '@prisma/client' 
 import { useParams, useRouter } from 'next/navigation'
 import { PiCaretUpDownThin } from "react-icons/pi";
 import { CheckIcon } from '@radix-ui/react-icons'
@@ -30,6 +29,7 @@ import StoreModal from '../Modals/store-modal'
 import { PiCheckThin } from "react-icons/pi";
 
 import { CiShop } from "react-icons/ci";
+import { useModal } from '@/hooks/use-modal-store'
 
  
 type PopoverTriggerProps =  React.ComponentPropsWithoutRef<typeof PopoverTrigger>
@@ -42,7 +42,7 @@ const StoreSwithcer = ({
  ...props
 }:StoreSwitcherProps) => {
 
-const {onOpen} = UseModalStore();
+const {onOpen} = useModal();
 const params = useParams();
 const router = useRouter();
 
@@ -82,8 +82,8 @@ const onSelectStore = (store:{label:string, value:string})=>{
         return(
           <CommandItem key={store.value} onSelect={()=>onSelectStore(store)}>
              <CiShop size={18} className='text-zinc-500 mr-2' />
-             <span className='ml-2 text-gray-500  w-[150px]  truncate'>{store?.label}</span>
-         <PiCheckThin   size={20} className={cn(" ml-auto  ml-2",
+             <span className='ml-2 text-gray-600  w-[150px]  truncate'>{store?.label}</span>
+         <PiCheckThin   size={20} className={cn("  ml-2",
          
          currentStore?.value === store.value ? " opacity-100 ":"opacity-0")}/>
           </CommandItem>
@@ -94,9 +94,9 @@ const onSelectStore = (store:{label:string, value:string})=>{
     </CommandGroup>
     <CommandSeparator />
     <CommandGroup  >
-      <CommandItem onSelect={()=>{
+      <CommandItem className='text-gray-600' onSelect={()=>{
           setOpen(false)
-          onOpen()
+           onOpen('CreateStore');
       }}>
         Create Store
         <IoIosAddCircleOutline className='ml-auto ' size={22} />

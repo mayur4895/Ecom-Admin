@@ -24,6 +24,11 @@ import { store } from "@prisma/client";
 import { useToast } from "./ui/use-toast";
 import axios from "axios";
 import { PiTrashSimpleBold } from "react-icons/pi";
+import AlertDilog from "./Modals/alert-moal";
+import Apialert from "./ui/api-alert";
+import ActionTooltip from "./Tooltip";
+import useOrigin from "@/hooks/use-origin";
+import { Separator } from "./ui/separator";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -36,6 +41,8 @@ interface SettingFormProps {
 }
 
 const SettingForm = ({ store }: SettingFormProps) => {
+     const origin = useOrigin();
+     
     const router = useRouter();
     const { toast } = useToast()
   const [IsLoading,setIsLoading] = useState(false);
@@ -62,13 +69,13 @@ const SettingForm = ({ store }: SettingFormProps) => {
             variant:"danger",
             title:"Something went wrong"
         })
+    }finally{
+      setIsLoading(false);
     }
   }
 
   async function DeleteStore() {
     try {
-        console.log("hiii");
-        
         setIsLoading(true);
        const response = await axios.delete(`/api/stores/${store.id}/`)
        toast({
@@ -83,6 +90,8 @@ const SettingForm = ({ store }: SettingFormProps) => {
             variant:"danger",
             title:"Something went wrong"
         })
+    }finally{
+      setIsLoading(false);
     }
   }
   useEffect(() => {
@@ -90,18 +99,32 @@ const SettingForm = ({ store }: SettingFormProps) => {
       form.setValue("name", store.name);
     }
   }, [form]);
+
+
+const [Open ,setOpen] = useState(false);
+
   return (
     <div className="px-5 pt-10 flex flex-1 gap-10 flex-col ">
+     <AlertDilog 
+     isOpen={Open}
+     title="Are You Sure?"
+     description="Are you sure you want to delete this store?"
+     onConfirm={()=>{DeleteStore()}}
+     Isloading={IsLoading}
+     onClose={()=>{setOpen(false)}}
+     />
      <div className=" flex justify-between items-center">
-     <Heading title="Setting" desc="manage the store" />
+     <Heading title="Setting" desc="manage the store prefernces" />
+     <ActionTooltip label='Delete Store' side='bottom' >   
      <Button size={'icon'}
-      onClick={()=>{DeleteStore()}}
+      onClick={()=>{setOpen(true)}}
       variant={"outline"} className=' bg-red-600 cursor-pointer  hover:bg-red-500 hover:text-white rounded-md text-white   w-10 h-10 flex items-center justify-center' >
-    <PiTrashSimpleBold  size={22}/>
- 
+    <PiTrashSimpleBold  size={16}/> 
     </Button>
+  </ActionTooltip>
+      
      </div>
-
+     <Separator/>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-8"> 
@@ -125,6 +148,12 @@ const SettingForm = ({ store }: SettingFormProps) => {
           <Button type="submit">Save Changes</Button>
         </form>
       </Form>
+ 
+      <Apialert 
+      title="NEXT_PUBLIC_API_URL"
+      description={`${origin}/api/${store.id}`}
+      variant="public"
+      />
     </div>
   );
 };
