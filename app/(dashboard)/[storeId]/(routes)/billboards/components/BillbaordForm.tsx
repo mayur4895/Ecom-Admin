@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Heading from "./ui/Heading";
+import Heading from "@/components/ui/Heading";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -18,50 +18,56 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { auth } from "@clerk/nextjs";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { redirect, useParams, useRouter, useSearchParams } from "next/navigation";
 import prismadb from "@/lib/prismadb";
-import { Store } from "@prisma/client";
-import { useToast } from "./ui/use-toast";
+import { Billboard, Store } from "@prisma/client";
+ 
 import axios from "axios";
 import { PiTrashSimpleBold } from "react-icons/pi";
-import AlertDilog from "./Modals/alert-moal";
-import Apialert from "./ui/api-alert";
-import ActionTooltip from "./Tooltip";
+ 
 import useOrigin from "@/hooks/use-origin";
-import { Separator } from "./ui/separator";
+import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast";
+import AlertDilog from "@/components/Modals/alert-moal";
+import ActionTooltip from "@/components/Tooltip";
+import Apialert from "@/components/ui/api-alert";
 
 const formSchema = z.object({
-  name: z.string().min(2, {
+  label: z.string().min(1, {
+    message: "Username must be at least 2 characters.",
+  }),
+  imageUrl: z.string().min(1, {
     message: "Username must be at least 2 characters.",
   }),
 });
 
-interface SettingFormProps {
-  store: Store;
+interface BillbaordProps {
+  intialData: Billboard  | null;
 }
 
-const SettingForm = ({ store }: SettingFormProps) => {
+ const BillbaordForm = ({ intialData }: BillbaordProps) => {
      const origin = useOrigin();
-     
+     const params = useParams();
     const router = useRouter();
     const { toast } = useToast()
   const [IsLoading,setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      label: "",
+      imageUrl:""
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
         setIsLoading(true);
-       const response = await axios.patch(`/api/stores/${store.id}/`,values)
+       const response = await axios.patch(`/api/stores/${params?.id}/`,values)
        toast({
         variant:"success",
         title:"Store name is Updated"
        })
-       router.prefetch(`/${store.id}/settings`);
+       router.prefetch(`/${params?.id}/settings`);
        router.refresh();
        form.reset();
     } catch (error) {
@@ -77,12 +83,12 @@ const SettingForm = ({ store }: SettingFormProps) => {
   async function DeleteStore() {
     try {
         setIsLoading(true);
-       const response = await axios.delete(`/api/stores/${store.id}/`)
+       const response = await axios.delete(`/api/stores/${params?.id}/`)
        toast({
         variant:"success",
         title:"Store deleted successfully"
        })
-       router.prefetch(`/${store.id}/settings`);
+       router.prefetch(`/${params?.id}/settings`);
        router.refresh();
        form.reset();
     } catch (error) {
@@ -94,11 +100,13 @@ const SettingForm = ({ store }: SettingFormProps) => {
       setIsLoading(false);
     }
   }
-  useEffect(() => {
-    if (store.name) {
-      form.setValue("name", store.name);
-    }
-  }, [form]);
+  
+//   useEffect(() => {
+//     if (intialData?.name) {
+//       form.setValue("name", intialData?.name);
+//     }
+//   }, [form]);
+
 
 
 const [Open ,setOpen] = useState(false);
@@ -114,7 +122,7 @@ const [Open ,setOpen] = useState(false);
      onClose={()=>{setOpen(false)}}
      />
      <div className=" flex justify-between items-center">
-     <Heading title="Setting" desc="manage the store prefernces" />
+     <Heading title="Billbaords" desc="manage the billboards prefernces" />
      <ActionTooltip label='Delete Store' side='bottom' >   
      <Button size={'icon'}
       onClick={()=>{setOpen(true)}}
@@ -130,12 +138,12 @@ const [Open ,setOpen] = useState(false);
             <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-8"> 
           <FormField
             control={form.control}
-            name="name"
+            name="label"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder={store.name} {...field} />
+                  <Input placeholder={"hii"} {...field} />
                 </FormControl>
                 <FormDescription>
                   This is your public display name.
@@ -151,11 +159,13 @@ const [Open ,setOpen] = useState(false);
  
       <Apialert 
       title="NEXT_PUBLIC_API_URL"
-      description={`${origin}/api/${store.id}`}
+      description={`${origin}/api/${params?.id}`}
       variant="public"
       />
     </div>
   );
 };
+ 
 
-export default SettingForm;
+
+export default BillbaordForm;

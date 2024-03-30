@@ -19,7 +19,7 @@ interface ActionTooltipProps{
     return (
         <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger>{
+          <TooltipTrigger asChild>{
             children
             }</TooltipTrigger>
           <TooltipContent side={side}>

@@ -13,11 +13,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model store {
-    id          String @id @default(auto()) @map("_id") @db.ObjectId
+model Store {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  bilboard  Billboard[] @relation("StoreToBillboard")
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 }
- 
+
+model Billboard {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  storeId String 
+  label    String
+  imageUrl String
+  store    Store  @relation("StoreToBillboard", fields: [storeId], references: [id])
+ createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+   
+}

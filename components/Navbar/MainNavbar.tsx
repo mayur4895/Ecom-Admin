@@ -17,6 +17,18 @@ console.log(params.storeId);
 
 const routes=[
     {   
+        href:`/${params.storeId}/overview`,
+        label:"Overview",
+        active:`/${params.storeId}/overview` === pathname  
+       
+    },
+    {   
+        href:`/${params.storeId}/billboards`,
+        label:"Billboards",
+        active:`/${params.storeId}/billboards` === pathname  
+       
+    },
+    {   
         href:`/${params.storeId}/settings`,
         label:"Settings",
         active:`/${params.storeId}/settings` === pathname  
