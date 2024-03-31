@@ -31,6 +31,7 @@ import { useToast } from "@/components/ui/use-toast";
 import AlertDilog from "@/components/Modals/alert-moal";
 import ActionTooltip from "@/components/Tooltip";
 import Apialert from "@/components/ui/api-alert";
+import Imageuplode from "@/components/ui/image-uplode";
 
 const formSchema = z.object({
   label: z.string().min(1, {
@@ -51,6 +52,13 @@ interface BillbaordProps {
     const router = useRouter();
     const { toast } = useToast()
   const [IsLoading,setIsLoading] = useState(false);
+
+
+  const title =  intialData ? "Edit Billbaord" : "Create Billboard"; 
+  const  description =  intialData ? "Edit a Billbaord" : "Add  A new Billboard";
+  const  action = intialData ? "Save Changes" : "Create";
+  const ToastMessage = intialData ? "Billbaord Updated" : "Billboard Created";
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,6 +66,7 @@ interface BillbaordProps {
       imageUrl:""
     },
   });
+ 
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -65,7 +74,7 @@ interface BillbaordProps {
        const response = await axios.patch(`/api/stores/${params?.id}/`,values)
        toast({
         variant:"success",
-        title:"Store name is Updated"
+        title:ToastMessage
        })
        router.prefetch(`/${params?.id}/settings`);
        router.refresh();
@@ -107,7 +116,7 @@ interface BillbaordProps {
 //     }
 //   }, [form]);
 
-
+ 
 
 const [Open ,setOpen] = useState(false);
 
@@ -122,7 +131,7 @@ const [Open ,setOpen] = useState(false);
      onClose={()=>{setOpen(false)}}
      />
      <div className=" flex justify-between items-center">
-     <Heading title="Billbaords" desc="manage the billboards prefernces" />
+     <Heading title={title} desc={description} />
      <ActionTooltip label='Delete Store' side='bottom' >   
      <Button size={'icon'}
       onClick={()=>{setOpen(true)}}
@@ -135,6 +144,29 @@ const [Open ,setOpen] = useState(false);
      <Separator className="mt-0"/>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+
+        <FormField
+            control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Background Image</FormLabel>
+                <FormControl>
+                     <Imageuplode
+                     value={field.value ? [field.value]:[]}
+                     onChange={(url)=>{field.onChange(url);}}
+                     onRemove={()=>field.onChange("")}
+                     disabled={IsLoading}
+
+
+                     />
+
+                </FormControl>
+                 
+                <FormMessage />
+              </FormItem>
+            )}
+          />
             <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-8"> 
           <FormField
             control={form.control}
@@ -143,7 +175,7 @@ const [Open ,setOpen] = useState(false);
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder={"hii"} {...field} />
+                  <Input placeholder={"Enter label"} {...field} />
                 </FormControl>
                 <FormDescription>
                   This is your public display name.
@@ -153,15 +185,10 @@ const [Open ,setOpen] = useState(false);
             )}
           />
           </div>
-          <Button type="submit">Save Changes</Button>
+          <Button type="submit">{action}</Button>
         </form>
       </Form>
- 
-      <Apialert 
-      title="NEXT_PUBLIC_API_URL"
-      description={`${origin}/api/${params?.id}`}
-      variant="public"
-      />
+   
     </div>
   );
 };

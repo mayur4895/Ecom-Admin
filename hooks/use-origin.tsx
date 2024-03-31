@@ -13,7 +13,7 @@ useEffect(()=>{
 },[setmounted])
 
 if(!mounted){
-    return '';
+    return null;
 }
 
 return origin;
