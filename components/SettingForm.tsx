@@ -118,7 +118,7 @@ const [Open ,setOpen] = useState(false);
      <ActionTooltip label='Delete Store' side='bottom' >   
      <Button size={'icon'}
       onClick={()=>{setOpen(true)}}
-      variant={"outline"} className=' bg-red-600 cursor-pointer  hover:bg-red-500 hover:text-white rounded-md text-white   w-10 h-10 flex items-center justify-center' >
+      variant={"destructive"}  >
     <PiTrashSimpleBold  size={16}/> 
     </Button>
   </ActionTooltip>

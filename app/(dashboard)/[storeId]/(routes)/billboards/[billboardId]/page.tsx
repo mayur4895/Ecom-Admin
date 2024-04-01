@@ -1,34 +1,31 @@
-import prismadb from "@/lib/prismadb"
-import BillbaordForm from "../components/BillbaordForm";
+import prismadb from "@/lib/prismadb";
+import BillbaordForm from "./components/BillbaordForm";
 
- 
-
-const BillboardPage = async({
-    params
-}:{
-    params:{
-        billboardId:string
-    }
+const BillboardPage = async ({
+  params
+}: {
+  params: {
+      billboardId: string;
+  };
 }) => {
+  let Billboard;
+
+  if (params.billboardId && params.billboardId !=="new") {
+      Billboard = await prismadb.billboard.findFirst({
+          where: {
+              id: params.billboardId
+          }
+      });
+  } else {
     
-
-     
-
-//  const Billboard = await prismadb.billboard.findFirst({
-//     where:{
-//         id:params.billboardId
-//     }
-//  })
-
+      Billboard = null;
+  }
 
   return (
-    <div>
-        <BillbaordForm 
-         intialData={null}
-        />
- 
-    </div>
-  )
-}
+      <div>
+          <BillbaordForm initialData={Billboard} />
+      </div>
+  );
+};
 
-export default BillboardPage
+export default BillboardPage;

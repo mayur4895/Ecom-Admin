@@ -35,33 +35,36 @@ import Imageuplode from "@/components/ui/image-uplode";
 
 const formSchema = z.object({
   label: z.string().min(1, {
-    message: "Username must be at least 2 characters.",
+    message: "required.",
   }),
   imageUrl: z.string().min(1, {
-    message: "Username must be at least 2 characters.",
+    message: "required",
   }),
 });
 
 interface BillbaordProps {
-  intialData: Billboard  | null;
+  initialData: Billboard  | null;
+   
 }
 
- const BillbaordForm = ({ intialData }: BillbaordProps) => {
+ const BillbaordForm:React.FC<BillbaordProps> = ({initialData}) => {
      const origin = useOrigin();
      const params = useParams();
     const router = useRouter();
     const { toast } = useToast()
   const [IsLoading,setIsLoading] = useState(false);
 
-
-  const title =  intialData ? "Edit Billbaord" : "Create Billboard"; 
-  const  description =  intialData ? "Edit a Billbaord" : "Add  A new Billboard";
-  const  action = intialData ? "Save Changes" : "Create";
-  const ToastMessage = intialData ? "Billbaord Updated" : "Billboard Created";
+ console.log(initialData);
+ 
+  
+  const title =  initialData ? "Edit Billbaord" : "Create Billboard"; 
+  const  description =  initialData ? "Edit a Billbaord" : "Add  A new Billboard";
+  const  action = initialData ? "Save Changes" : "Create";
+  const ToastMessage = initialData ? "Billbaord Updated" : "Billboard Created";
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    defaultValues: initialData || {
       label: "",
       imageUrl:""
     },
@@ -71,13 +74,19 @@ interface BillbaordProps {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
         setIsLoading(true);
-       const response = await axios.patch(`/api/stores/${params?.id}/`,values)
-       toast({
+        if(initialData){
+         await  axios.patch(`/api/${params?.storeId}/billboards/${params?.billboardId}`,values)
+        }
+        else{
+          await axios.post(`/api/${params?.storeId}/billboards/`,values)
+        }
+        toast({
         variant:"success",
         title:ToastMessage
        })
-       router.prefetch(`/${params?.id}/settings`);
+     
        router.refresh();
+       router.push(`/${params?.storeId}/billboards`)
        form.reset();
     } catch (error) {
         toast({
@@ -92,13 +101,14 @@ interface BillbaordProps {
   async function DeleteStore() {
     try {
         setIsLoading(true);
-       const response = await axios.delete(`/api/stores/${params?.id}/`)
+       await axios.delete(`/api/${params?.storeId}/billboards/${params.billboardId}`)
        toast({
         variant:"success",
-        title:"Store deleted successfully"
+        title: "Billboard deleted successfully"
        })
-       router.prefetch(`/${params?.id}/settings`);
+       
        router.refresh();
+       router.push(`/${params?.storeId}/billboards`)
        form.reset();
     } catch (error) {
         toast({
@@ -110,12 +120,7 @@ interface BillbaordProps {
     }
   }
   
-//   useEffect(() => {
-//     if (intialData?.name) {
-//       form.setValue("name", intialData?.name);
-//     }
-//   }, [form]);
-
+ 
  
 
 const [Open ,setOpen] = useState(false);
@@ -135,7 +140,7 @@ const [Open ,setOpen] = useState(false);
      <ActionTooltip label='Delete Store' side='bottom' >   
      <Button size={'icon'}
       onClick={()=>{setOpen(true)}}
-      variant={"outline"} className=' bg-red-600 cursor-pointer  hover:bg-red-500 hover:text-white rounded-md text-white   w-10 h-10 flex items-center justify-center' >
+      variant={"destructive"}  >
     <PiTrashSimpleBold  size={16}/> 
     </Button>
   </ActionTooltip>
@@ -149,21 +154,19 @@ const [Open ,setOpen] = useState(false);
             control={form.control}
             name="imageUrl"
             render={({ field }) => (
-              <FormItem>
+              <FormItem> 
                 <FormLabel>Background Image</FormLabel>
                 <FormControl>
                      <Imageuplode
-                     value={field.value ? [field.value]:[]}
-                     onChange={(url)=>{field.onChange(url);}}
+                     value={field.value ? [field.value]:[] }
+                     onChange={(url)=>{field.onChange(url)}}
                      onRemove={()=>field.onChange("")}
-                     disabled={IsLoading}
-
-
+                     disabled={IsLoading}  
                      />
 
                 </FormControl>
                  
-                <FormMessage />
+              
               </FormItem>
             )}
           />
@@ -177,10 +180,8 @@ const [Open ,setOpen] = useState(false);
                 <FormControl>
                   <Input placeholder={"Enter label"} {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
-                <FormMessage />
+               
+                
               </FormItem>
             )}
           />

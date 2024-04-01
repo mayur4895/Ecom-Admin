@@ -1,5 +1,5 @@
 import React from 'react'
-import BillbaordClient from './components/client'
+import BillbaordClient from './[billboardId]/components/client'
 
 const Billboardpage = () => {
   return (
