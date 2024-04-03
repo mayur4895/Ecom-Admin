@@ -55,8 +55,7 @@ if(!storebyUser){
 
 export   async function GET(req:Request,{params}:{params:{storeId:string}}) {
 
-  try {
-      
+  try { 
   
 if(!params.storeId){
 return new NextResponse("storeId is required",{status:400})

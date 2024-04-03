@@ -18,8 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { auth } from "@clerk/nextjs";
-import { redirect, useParams, useRouter, useSearchParams } from "next/navigation";
-import prismadb from "@/lib/prismadb";
+import { redirect, useParams, useRouter } from "next/navigation"; 
 import { Billboard, Store } from "@prisma/client";
  
 import axios from "axios";
@@ -29,8 +28,7 @@ import useOrigin from "@/hooks/use-origin";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
 import AlertDilog from "@/components/Modals/alert-moal";
-import ActionTooltip from "@/components/Tooltip";
-import Apialert from "@/components/ui/api-alert";
+import ActionTooltip from "@/components/Tooltip"; 
 import Imageuplode from "@/components/ui/image-uplode";
 
 const formSchema = z.object({
@@ -53,8 +51,7 @@ interface BillbaordProps {
     const router = useRouter();
     const { toast } = useToast()
   const [IsLoading,setIsLoading] = useState(false);
-
- console.log(initialData);
+ 
  
   
   const title =  initialData ? "Edit Billbaord" : "Create Billboard"; 

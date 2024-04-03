@@ -12,8 +12,7 @@ const MainNavbar = ({
     ...props
 }: React.HTMLAttributes<HTMLElement>) => {
 const pathname = usePathname();
-const params = useParams();
-console.log(params.storeId);
+const params = useParams(); 
 
 const routes=[
     {   
