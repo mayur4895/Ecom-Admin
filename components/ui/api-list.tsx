@@ -13,7 +13,7 @@ const ApiList = ({ entityName, entityNameId }: ApiListProps) => {
   console.log(params.billboardId);
 
   return (
-    <>
+    <><div className="flex-col gap-2 flex mt-4"> 
       <Apialert
         variant="public"
         title="GET"
@@ -41,7 +41,9 @@ const ApiList = ({ entityName, entityNameId }: ApiListProps) => {
         title="Delete"
         description={`${origin}/api/${params.storeId}/${entityName}/${entityNameId}`}
       />
+    </div>
     </>
+    
   );
 };
 

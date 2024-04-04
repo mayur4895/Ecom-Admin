@@ -28,6 +28,12 @@ const routes=[
        
     },
     {   
+        href:`/${params.storeId}/categories`,
+        label:"Categories",
+        active:`/${params.storeId}/categories` === pathname  
+       
+    },
+    {   
         href:`/${params.storeId}/settings`,
         label:"Settings",
         active:`/${params.storeId}/settings` === pathname  
