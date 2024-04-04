@@ -1,6 +1,6 @@
 'use client'
 import ActionTooltip from '@/components/Tooltip'
-import Heading from '@/components/ui/Heading'
+ 
 import { Button } from '@/components/ui/button'
 import { PlusIcon } from '@radix-ui/react-icons'
 import { useModal } from '@/hooks/use-modal-store' 
@@ -12,6 +12,8 @@ import { Billboard } from '@prisma/client'
 import { Separator } from '@radix-ui/react-separator'
 import { DataTable } from '@/components/ui/data-table'
 import { BillboardDataType, columns } from './columns'
+import Heading from '@/components/ui/Heading'
+import ApiList from '@/components/ui/api-list'
  
 interface BillbaordClientProps{
   billboards:BillboardDataType[];
@@ -44,6 +46,16 @@ const BillbaordClient = ({
      
      <Separator/>
        <DataTable searchKey='label' columns={columns} data={billboards}/>
+       
+
+
+       <Heading title={`Api`} desc="billobards Api" />
+       <Separator/>
+       <ApiList 
+       entityName='billboards'
+       entityNameId='billboardId'
+        
+       />
     </div>
   )
 }

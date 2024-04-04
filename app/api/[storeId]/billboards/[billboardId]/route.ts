@@ -99,11 +99,9 @@ export async function DELETE(req:Request, {params}:{params:{billboardId:string, 
 
    
 
-export async function GET(req:Request, {params}:{params:{billbaordId:string, storeId:string}}){
-    try {
-  
-       
-        if(!params.billbaordId){
+export async function GET(req:Request, {params}:{params:{billboardId:string, storeId:string}}){
+    try {  
+        if(!params.billboardId){
             return new NextResponse("billboardId is required",{status:400})
         }
 
@@ -111,7 +109,7 @@ export async function GET(req:Request, {params}:{params:{billbaordId:string, sto
 
    const billbaord = await prismadb.billboard.findFirst({
        where:{
-           id:params.billbaordId,  
+           id:params.billboardId,  
            
 
        }
