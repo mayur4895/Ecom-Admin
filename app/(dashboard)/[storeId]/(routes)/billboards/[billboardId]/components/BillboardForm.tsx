@@ -40,12 +40,12 @@ const formSchema = z.object({
   }),
 });
 
-interface BillbaordProps {
+interface BillboardProps {
   initialData: Billboard  | null;
    
 }
 
- const BillbaordForm:React.FC<BillbaordProps> = ({initialData}) => {
+ const BillboardForm:React.FC<BillboardProps> = ({initialData}) => {
      const origin = useOrigin();
      const params = useParams();
     const router = useRouter();
@@ -54,10 +54,10 @@ interface BillbaordProps {
  
  
   
-  const title =  initialData ? "Edit Billbaord" : "Create Billboard"; 
-  const  description =  initialData ? "Edit a Billbaord" : "Add  A new Billboard";
+  const title =  initialData ? "Edit Billboard" : "Create Billboard"; 
+  const  description =  initialData ? "Edit a Billboard" : "Add  A new Billboard";
   const  action = initialData ? "Save Changes" : "Create";
-  const ToastMessage = initialData ? "Billbaord Updated" : "Billboard Created";
+  const ToastMessage = initialData ? "Billboard Updated" : "Billboard Created";
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -173,7 +173,7 @@ const [Open ,setOpen] = useState(false);
             name="label"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Billboard</FormLabel>
                 <FormControl>
                   <Input placeholder={"Enter label"} {...field} />
                 </FormControl>
@@ -193,4 +193,4 @@ const [Open ,setOpen] = useState(false);
  
 
 
-export default BillbaordForm;
+export default BillboardForm;

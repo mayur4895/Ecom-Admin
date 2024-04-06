@@ -15,15 +15,14 @@ import { BillboardDataType, columns } from './columns'
 import Heading from '@/components/ui/Heading'
 import ApiList from '@/components/ui/api-list'
  
-interface BillbaordClientProps{
+interface BillboardClientProps{
   billboards:BillboardDataType[];
 }
-const BillbaordClient = ({
+const BillboardClient = ({
   billboards
-}:BillbaordClientProps) => {
+}:BillboardClientProps) => {
     const router = useRouter();
-    const params = useParams();
-    const { isOpen} = useModal();
+    const params = useParams(); 
 
   
      
@@ -33,7 +32,7 @@ const BillbaordClient = ({
   return (
       <div>
           <div className=" flex justify-between items-center">
-     <Heading title={`Billbaords(${billboards?.length})`} desc="manage the billobards prefernces" />
+     <Heading title={`Billboards(${billboards?.length})`} desc="manage the billobards prefernces" />
        
      <Button  
      className='flex gap-2'
@@ -49,7 +48,7 @@ const BillbaordClient = ({
        
 
 
-       <Heading title={`Api`} desc="billobards Api" />
+       <Heading title={`Api`} desc="billboards Api" />
        <Separator/>
        <ApiList 
        entityName='billboards'
@@ -60,4 +59,4 @@ const BillbaordClient = ({
   )
 }
 
-export default BillbaordClient
+export default BillboardClient

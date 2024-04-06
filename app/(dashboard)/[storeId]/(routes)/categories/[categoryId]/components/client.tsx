@@ -12,12 +12,12 @@ import { CategoryDataType, columns } from './columns'
 import Heading from '@/components/ui/Heading'
 import ApiList from '@/components/ui/api-list'
  
-interface BillbaordClientProps{
-  billboards:CategoryDataType[];
+interface CategoryClientProps{
+  categories:CategoryDataType[];
 }
-const BillbaordClient = ({
-  billboards
-}:BillbaordClientProps) => {
+const CategoryClient = ({
+  categories
+}:CategoryClientProps) => {
     const router = useRouter();
     const params = useParams();
     const { isOpen} = useModal();
@@ -30,11 +30,11 @@ const BillbaordClient = ({
   return (
       <div>
           <div className=" flex justify-between items-center">
-     <Heading title={`Categories(${billboards?.length})`} desc="manage the Categories prefernces" />
+     <Heading title={`Categories(${categories?.length})`} desc="manage the Categories prefernces" />
        
      <Button  
      className='flex gap-2'
-      onClick={()=>{router.push(`/${params.storeId}/billboards/new`)}}   >
+      onClick={()=>{router.push(`/${params.storeId}/categories/new`)}}   >
      <PlusIcon />
     create New
     </Button> 
@@ -42,14 +42,14 @@ const BillbaordClient = ({
      </div>
      
      <Separator/>
-       <DataTable searchKey='label' columns={columns} data={billboards}/>
+       <DataTable searchKey='label' columns={columns} data={categories}/>
        
 
 
        <Heading title={`Api`} desc="Categories Api" />
        <Separator/>
        <ApiList 
-       entityName='billboards'
+       entityName='categories'
        entityNameId='billboardId'
         
        />
@@ -57,4 +57,4 @@ const BillbaordClient = ({
   )
 }
 
-export default BillbaordClient
+export default CategoryClient

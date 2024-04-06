@@ -1,5 +1,4 @@
-import { ColumnDef } from "@tanstack/react-table"
-import { BillboardDataType } from "./columns"
+import { ColumnDef } from "@tanstack/react-table" 
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -15,11 +14,12 @@ import axios from "axios"
 import { useToast } from "@/components/ui/use-toast"
 import AlertDilog from "@/components/Modals/alert-moal"
 import { useState } from "react"
+import { CategoryDataType } from "./columns"
   
 
 
 interface cellActionProps{
-    data:BillboardDataType,
+    data:CategoryDataType,
      
 }
 
@@ -39,13 +39,13 @@ export const CellAction:React.FC<cellActionProps> = ({
   async function DeleteStore() {
     try {
         setIsLoading(true);
-       await axios.delete(`/api/${params?.storeId}/billboards/${data.id}`)
+       await axios.delete(`/api/${params?.storeId}/categories/${data.id}`)
        toast({
         variant:"success",
-        title: "Billboard deleted successfully"
+        title: "Category deleted successfully"
        }) 
        router.refresh();
-       router.push(`/${params?.storeId}/billboards`)
+       router.push(`/${params?.storeId}/categories`)
        
     } catch (error) {
         toast({
@@ -81,10 +81,10 @@ export const CellAction:React.FC<cellActionProps> = ({
               onClick={() => navigator.clipboard.writeText(data.id)}
             >
                 <LuCopy/>
-              Copy Billboard ID
+              Copy Category ID
     </DropdownMenuItem>
     <DropdownMenuItem className="flex gap-2"
-    onClick={()=>{router.push(`/${params.storeId}/billboards/${data.id}`)}}
+    onClick={()=>{router.push(`/${params.storeId}/categories/${data.id}`)}}
     > <LuPen />Update</DropdownMenuItem>
     <DropdownMenuItem 
     onClick={()=>{setOpen(true)}}
