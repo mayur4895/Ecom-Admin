@@ -35,9 +35,8 @@ if(!storebyUser){
       const category = await  prismadb.category.create({
          
         data:{
-          name,
-          billboardId:params.billboardId, 
-          
+          name, 
+          billboardId,   
           storeId:params.storeId
     
         }

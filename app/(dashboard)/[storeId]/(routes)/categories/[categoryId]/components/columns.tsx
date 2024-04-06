@@ -7,6 +7,7 @@ export type CategoryDataType = {
   id: string;
   name: string;
   billboardLabel:string;
+  categoryId:string;
   createdAt: string;
 };
 
@@ -22,7 +23,7 @@ export const columns: ColumnDef<CategoryDataType>[] = [
   {
     accessorKey: "billboard",
     header: "billbaord",
-    cell: ({ row }) => row.original.billboardLabel
+    cell: ({ row }) => row.original.categoryId
   },
   {
     id: "Actions",

@@ -20,9 +20,6 @@ const Categories = await prismadb.category.findMany({
   where:{
     storeId:params.storeId
   },
-  include:{
-billboard:true
-  },
   
   orderBy:{
     createdAt: 'desc'
@@ -34,7 +31,8 @@ const formatedCategories:CategoryDataType[] = Categories.map((item)=>{
   return {
     id:item.id,
     name:item.name, 
-    billboardLabel:item.billboard.label,
+    billboardLabel:item.name,
+    categoryId:item.id,
     createdAt:format(item.createdAt,'MMMM do yyyy'), 
   }
 })
