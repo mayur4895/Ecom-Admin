@@ -34,6 +34,18 @@ const routes=[
        
     },
     {   
+        href:`/${params.storeId}/sizes`,
+        label:"Sizes",
+        active:`/${params.storeId}/sizes` === pathname  
+       
+    },
+    {   
+        href:`/${params.storeId}/colors`,
+        label:"Colors",
+        active:`/${params.storeId}/colors` === pathname  
+       
+    },
+    {   
         href:`/${params.storeId}/settings`,
         label:"Settings",
         active:`/${params.storeId}/settings` === pathname  
