@@ -26,7 +26,7 @@ model Store {
 
 model Billboard {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  storeId String 
+  storeId String  @db.ObjectId
   label    String
   imageUrl String
   categories Category[]
@@ -39,15 +39,15 @@ model Billboard {
 
 model Category{
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  storeId String  
-  name String
+  storeId String  @db.ObjectId
   store    Store  @relation("StoreToCategory", fields: [storeId], references: [id])
-  billboardId String
-  billboard  Billboard  @relation( fields: [storeId], references: [id])
+  billboardId String @db.ObjectId
+  billboard Billboard @relation( fields: [billboardId], references: [id])
+  name String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([storeId])
-  @@index([updatedAt])
+  @@index([billboardId])
 
 }

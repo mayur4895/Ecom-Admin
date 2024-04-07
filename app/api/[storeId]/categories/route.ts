@@ -18,6 +18,10 @@ export   async function POST(req:Request,{params}:{params:{storeId:string ,billb
          if(!name || !billboardId){
            return new NextResponse("name is required" ,{status:400})
          }
+
+
+         console.log(billboardId);
+         
    if(!params.storeId){
   return new NextResponse("storeId is required",{status:400})
    }

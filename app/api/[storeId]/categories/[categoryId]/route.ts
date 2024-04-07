@@ -11,7 +11,7 @@ export async function PATCH(req:Request, {params}:{params:{  categoryId:string ,
 
   
     const {name , billboardId} = await req.json();
-    if(!name || !billboardId){
+    if(!name || ! billboardId){
       return new NextResponse("all fields arre required",{status:400})
 }
 
@@ -103,17 +103,16 @@ export async function GET(req:Request, {params}:{params:{categoryId:string, stor
         if(!params.categoryId){
             return new NextResponse("categoryId is required",{status:400})
         }
+console.log(params.categoryId);
 
         
 
    const category = await prismadb.category.findFirst({
        where:{
-           id:params.categoryId,  
-           
-
+           id:params.categoryId,   
        }
-   })
-   
+   }) 
+    
    return  NextResponse.json(category,{status:200});
    
    

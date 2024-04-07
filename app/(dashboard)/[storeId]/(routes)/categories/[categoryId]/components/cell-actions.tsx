@@ -70,8 +70,7 @@ export const CellAction:React.FC<cellActionProps> = ({
      />
     <DropdownMenu>
   <DropdownMenuTrigger>
-  <BsThreeDotsVertical />
-
+  <BsThreeDotsVertical /> 
   </DropdownMenuTrigger>
   <DropdownMenuContent>
     <DropdownMenuLabel>Actions</DropdownMenuLabel>

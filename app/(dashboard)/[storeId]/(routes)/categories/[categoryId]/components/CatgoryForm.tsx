@@ -142,13 +142,15 @@ const [Open ,setOpen] = useState(false);
      />
      <div className=" flex justify-between items-center">
      <Heading title={title} desc={description} />
-     <ActionTooltip label='Delete Store' side='bottom' >   
-     <Button size={'icon'}
-      onClick={()=>{setOpen(true)}}
-      variant={"destructive"}  >
-    <PiTrashSimpleBold  size={16}/> 
-    </Button>
-  </ActionTooltip>
+     { params.categoryId != "new" &&(
+       <ActionTooltip label='Delete Store' side='bottom' >   
+       <Button size={'icon'}
+        onClick={()=>{setOpen(true)}}
+        variant={"destructive"}  >
+      <PiTrashSimpleBold  size={16}/> 
+      </Button>
+    </ActionTooltip>)
+     }
       
      </div>
      <Separator className="mt-0"/>
@@ -174,8 +176,8 @@ const [Open ,setOpen] = useState(false);
           name="billboardId"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormLabel>Billboard</FormLabel>
+              <Select disabled={IsLoading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a Billboard" />
@@ -186,7 +188,7 @@ const [Open ,setOpen] = useState(false);
                     billboards.map((billboard)=>{
                       return (
                         <SelectItem key={billboard.id}
-                         value={billboard.label}
+                         value={billboard.id}
                         >
                           {billboard.label}
                         </SelectItem>

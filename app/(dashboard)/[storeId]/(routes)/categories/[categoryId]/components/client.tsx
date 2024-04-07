@@ -21,9 +21,8 @@ const CategoryClient = ({
     const router = useRouter();
     const params = useParams();
     const { isOpen} = useModal();
-
-  
-     
+ 
+      
    
      
  
@@ -42,15 +41,14 @@ const CategoryClient = ({
      </div>
      
      <Separator/>
-       <DataTable searchKey='label' columns={columns} data={categories}/>
-       
+       <DataTable searchKey='label' columns={columns} data={categories}/> 
 
 
        <Heading title={`Api`} desc="Categories Api" />
        <Separator/>
        <ApiList 
        entityName='categories'
-       entityNameId='billboardId'
+       entityNameId='categoryId'
         
        />
     </div>
