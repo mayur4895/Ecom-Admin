@@ -133,7 +133,7 @@ const [Open ,setOpen] = useState(false);
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Store Name</FormLabel>
                 <FormControl>
                   <Input placeholder={store.name} {...field} />
                 </FormControl>

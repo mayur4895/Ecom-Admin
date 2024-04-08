@@ -4,19 +4,19 @@ import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
 import { DataTable } from '@/components/ui/data-table'; 
-import {format} from "date-fns";
-import { SizeDataType } from './[sizeId]/components/columns';
-import SizeClient from './[sizeId]/components/client';
+import {format} from "date-fns"; 
+import { ColorDataType } from './[colorId]/components/columns';
+import ColorClient from './[colorId]/components/client';
 
 
 
 
-const Sizepage = async({
+const Colorpage = async({
   params
 }:{params:{storeId:string}}) => {
   
   
-const sizes = await prismadb.size.findMany({
+const colors = await prismadb.color.findMany({
   where:{
     storeId:params.storeId
   },orderBy:{
@@ -25,7 +25,7 @@ const sizes = await prismadb.size.findMany({
 })
 
 
-const formatedSizes:SizeDataType[] = sizes.map((item)=>{
+const formatedColors:ColorDataType[] = colors.map((item)=>{
   return {
     id:item.id,
     name:item.name, 
@@ -36,10 +36,10 @@ const formatedSizes:SizeDataType[] = sizes.map((item)=>{
   return (
     <div className=' flex flex-col'>
       <div className='flex-1 space-x-8  p-8 pt-6'> 
-       <SizeClient sizes={formatedSizes}/> 
+       <ColorClient  colors={formatedColors}/> 
        </div>
     </div>
   )
 }
 
-export default Sizepage
+export default Colorpage

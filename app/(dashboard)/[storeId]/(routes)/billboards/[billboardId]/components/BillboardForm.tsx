@@ -82,8 +82,9 @@ interface BillboardProps {
         title:ToastMessage
        })
      
-       router.refresh();
-       router.push(`/${params?.storeId}/billboards`)
+       router.refresh(); 
+       
+       window.location.assign(`/${params?.storeId}/billboards`) 
        form.reset();
     } catch (error) {
         toast({
@@ -104,9 +105,9 @@ interface BillboardProps {
         title: "Billboard deleted successfully"
        })
        
-       router.refresh();
-       router.push(`/${params?.storeId}/billboards`)
-       form.reset();
+       
+       form.reset(); 
+          window.location.assign(`/${params?.storeId}/billboards`) 
     } catch (error) {
         toast({
             variant:"danger",
@@ -134,13 +135,15 @@ const [Open ,setOpen] = useState(false);
      />
      <div className=" flex justify-between items-center">
      <Heading title={title} desc={description} />
-     <ActionTooltip label='Delete Store' side='bottom' >   
-     <Button size={'icon'}
-      onClick={()=>{setOpen(true)}}
-      variant={"destructive"}  >
-    <PiTrashSimpleBold  size={16}/> 
-    </Button>
-  </ActionTooltip>
+     { params.billboardId != "new" &&(
+       <ActionTooltip label='Delete Billboard' side='bottom' >   
+       <Button size={'icon'}
+        onClick={()=>{setOpen(true)}}
+        variant={"destructive"}  >
+      <PiTrashSimpleBold  size={16}/> 
+      </Button>
+    </ActionTooltip>)
+     }
       
      </div>
      <Separator className="mt-0"/>

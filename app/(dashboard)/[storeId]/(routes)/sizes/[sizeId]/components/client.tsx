@@ -32,7 +32,7 @@ const SizeClient = ({
   return (
       <div>
           <div className=" flex justify-between items-center">
-     <Heading title={`sizes(${sizes?.length})`} desc="manage the billobards prefernces" />
+     <Heading title={`sizes(${sizes?.length})`} desc="manage the sizes prefernces" />
        
      <Button  
      className='flex gap-2'
@@ -44,7 +44,7 @@ const SizeClient = ({
      </div>
      
      <Separator/>
-       <DataTable searchKey='label' columns={columns} data={sizes}/>
+       <DataTable searchKey='name' columns={columns} data={sizes}/>
        
 
 

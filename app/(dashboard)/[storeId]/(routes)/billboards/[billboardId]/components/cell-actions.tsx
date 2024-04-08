@@ -44,8 +44,7 @@ export const CellAction:React.FC<cellActionProps> = ({
         variant:"success",
         title: "Billboard deleted successfully"
        }) 
-       router.refresh();
-       router.push(`/${params?.storeId}/billboards`)
+       window.location.assign(`/${params?.storeId}/billboards`) 
        
     } catch (error) {
         toast({

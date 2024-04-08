@@ -90,9 +90,9 @@ interface CategoryProps {
         title:ToastMessage
        })
      
-       router.refresh();
-       router.push(`/${params?.storeId}/categories`)
        form.reset();
+       window.location.assign(`/${params?.storeId}/categories`) 
+        
     } catch (error) {
         toast({
             variant:"danger",
@@ -112,9 +112,8 @@ interface CategoryProps {
         title: "Billboard deleted successfully"
        })
        
-       router.refresh();
-       router.push(`/${params?.storeId}/categories`)
-       form.reset();
+       form.reset(); 
+       window.location.assign(`/${params?.storeId}/categories`)
     } catch (error) {
         toast({
             variant:"danger",

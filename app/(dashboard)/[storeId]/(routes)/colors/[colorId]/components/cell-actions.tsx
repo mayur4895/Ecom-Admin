@@ -1,4 +1,5 @@
-import { ColumnDef } from "@tanstack/react-table" 
+import { ColumnDef } from "@tanstack/react-table"
+ 
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -13,13 +14,13 @@ import { useParams, useRouter } from "next/navigation"
 import axios from "axios"
 import { useToast } from "@/components/ui/use-toast"
 import AlertDilog from "@/components/Modals/alert-moal"
-import { useState } from "react" 
-import { SizeDataType } from "./columns"
+import { useState } from "react"
+import { ColorDataType } from "./columns"
   
 
 
 interface cellActionProps{
-    data:SizeDataType,
+    data:ColorDataType,
      
 }
 
@@ -39,13 +40,14 @@ export const CellAction:React.FC<cellActionProps> = ({
   async function DeleteStore() {
     try {
         setIsLoading(true);
-       await axios.delete(`/api/${params?.storeId}/sizes/${data.id}`)
+       await axios.delete(`/api/${params?.storeId}/colors/${data.id}`)
        toast({
         variant:"success",
-        title: "Size deleted successfully"
+        title: "Color deleted successfully"
        })  
        
-       window.location.assign(`/${params?.storeId}/sizes`) 
+       router.refresh(); 
+        window.location.assign(`/${params?.storeId}/colors`)
        
     } catch (error) {
         toast({
@@ -63,14 +65,15 @@ export const CellAction:React.FC<cellActionProps> = ({
     <AlertDilog 
      isOpen={Open}
      title="Are You Sure?"
-     description="Are you sure you want to delete this size?"
+     description="Are you sure you want to delete this Color?"
      onConfirm={()=>{DeleteStore()}}
      Isloading={IsLoading}
      onClose={()=>{setOpen(false)}}
      />
     <DropdownMenu>
   <DropdownMenuTrigger>
-  <BsThreeDotsVertical /> 
+  <BsThreeDotsVertical />
+
   </DropdownMenuTrigger>
   <DropdownMenuContent>
     <DropdownMenuLabel>Actions</DropdownMenuLabel>
@@ -80,10 +83,10 @@ export const CellAction:React.FC<cellActionProps> = ({
               onClick={() => navigator.clipboard.writeText(data.id)}
             >
                 <LuCopy/>
-              Copy Size ID
+              Copy Color ID
     </DropdownMenuItem>
     <DropdownMenuItem className="flex gap-2"
-    onClick={()=>{router.push(`/${params.storeId}/sizes/${data.id}`)}}
+    onClick={()=>{router.push(`/${params.storeId}/colors/${data.id}`)}}
     > <LuPen />Update</DropdownMenuItem>
     <DropdownMenuItem 
     onClick={()=>{setOpen(true)}}

@@ -9,8 +9,7 @@ interface ApiListProps {
 }
 const ApiList = ({ entityName, entityNameId }: ApiListProps) => {
   const params = useParams();
-  const origin = useOrigin();
-  console.log(params.billboardId);
+  const origin = useOrigin(); 
 
   return (
     <><div className="flex-col gap-2 flex mt-4"> 

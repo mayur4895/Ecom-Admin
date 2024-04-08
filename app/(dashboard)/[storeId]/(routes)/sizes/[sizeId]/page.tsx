@@ -5,15 +5,15 @@ const SizePage = async ({
   params
 }: {
   params: {
-      storeId: string;
+      sizeId: string;
   };
 }) => {
   let Size;
 
-  if (params.storeId && params.storeId !=="new") {
+  if (params.sizeId && params.sizeId !=="new") {
       Size = await prismadb.size.findFirst({
           where: {
-              id: params.storeId
+              id: params.sizeId
           }
       });
   } else {

@@ -45,7 +45,7 @@ export const CellAction:React.FC<cellActionProps> = ({
         title: "Category deleted successfully"
        }) 
        router.refresh();
-       router.push(`/${params?.storeId}/categories`)
+       window.location.assign(`/${params?.storeId}/categories`) 
        
     } catch (error) {
         toast({

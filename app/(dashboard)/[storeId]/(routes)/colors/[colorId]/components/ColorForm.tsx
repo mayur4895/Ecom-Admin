@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { auth } from "@clerk/nextjs";
 import { redirect, useParams, useRouter } from "next/navigation"; 
-import { Size, Store } from "@prisma/client";
+import { Color, Size, Store } from "@prisma/client";
  
 import axios from "axios";
 import { PiTrashSimpleBold } from "react-icons/pi";
@@ -35,17 +35,17 @@ const formSchema = z.object({
   name: z.string().min(1, {
     message: "required.",
   }),
-  value: z.string().min(1, {
-    message: "required",
+  value: z.string().min(4).regex(/^#/,{
+    message:"String must be valid hex color code"
   }),
 });
 
-interface SizeProps {
-  initialData: Size  | null;
-   
-}
+interface ColorProps {
+  initialData: Color  | null; 
+} 
 
- const SizeForm:React.FC<SizeProps> = ({initialData}) => {
+
+ const ColorForm:React.FC<ColorProps> = ({initialData}) => {
      const origin = useOrigin();
      const params = useParams();
     const router = useRouter();
@@ -54,37 +54,36 @@ interface SizeProps {
  
  
   
-  const title =  initialData ? "Edit Size" : "Create Size"; 
-  const  description =  initialData ? "Edit a Size" : "Add  A new Size";
+  const title =  initialData ? "Edit Color" : "Create Color"; 
+  const  description =  initialData ? "Edit a Color" : "Add  A new Color";
   const  action = initialData ? "Save Changes" : "Create";
-  const ToastMessage = initialData ? "Size Updated" : "Size Created";
+  const ToastMessage = initialData ? "Color Updated" : "Color Created";
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData || {
+    defaultValues:initialData || {
       name: "",
       value:""
     },
   });
- 
  
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
         setIsLoading(true);
         if(initialData){
-         await  axios.patch(`/api/${params?.storeId}/sizes/${params?.sizeId}`,values)
+         await  axios.patch(`/api/${params?.storeId}/colors/${params?.colorId}`,values)
         }
         else{
-          await axios.post(`/api/${params?.storeId}/sizes/`,values)
+          await axios.post(`/api/${params?.storeId}/colors/`,values)
         }
         toast({
         variant:"success",
         title:ToastMessage
        })
      
-       form.reset();
-       window.location.assign(`/${params?.storeId}/sizes`)
+       form.reset(); 
+       window.location.assign(`/${params?.storeId}/colors`)
     } catch (error) {
         toast({
             variant:"danger",
@@ -98,14 +97,14 @@ interface SizeProps {
   async function DeleteStore() {
     try {
         setIsLoading(true);
-       await axios.delete(`/api/${params?.storeId}/sizes/${params.sizeId}`)
+       await axios.delete(`/api/${params?.storeId}/colors/${params.colorId}`)
        toast({
         variant:"success",
         title: "Size deleted successfully"
-       })
-       
-       form.reset();
-       window.location.assign(`/${params?.storeId}/sizes`)
+       }) 
+       router.refresh(); 
+        window.location.assign(`/${params?.storeId}/colors`)
+ 
     } catch (error) {
         toast({
             variant:"danger",
@@ -120,6 +119,7 @@ interface SizeProps {
  
 
 const [Open ,setOpen] = useState(false);
+console.log(initialData);
 
   return (
     <div className="px-5 pt-10 flex flex-1 gap-10 flex-col ">
@@ -133,8 +133,8 @@ const [Open ,setOpen] = useState(false);
      />
      <div className=" flex justify-between items-center">
      <Heading title={title} desc={description} />
-     { params.sizeId != "new" &&(
-       <ActionTooltip label='Delete Size' side='bottom' >   
+     { params.colorId != "new" &&(
+       <ActionTooltip label='Delete Color' side='bottom' >   
        <Button size={'icon'}
         onClick={()=>{setOpen(true)}}
         variant={"destructive"}  >
@@ -157,7 +157,7 @@ const [Open ,setOpen] = useState(false);
               <FormItem>
                 <FormLabel>name</FormLabel>
                 <FormControl>
-                  <Input placeholder={"Enter Size Name"} {...field} />
+                  <Input placeholder={"Enter Color Name"} {...field} />
                 </FormControl>
                
                 
@@ -169,9 +169,12 @@ const [Open ,setOpen] = useState(false);
             name="value"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Size</FormLabel>
+                <FormLabel>Color</FormLabel>
                 <FormControl>
-                  <Input placeholder={"Enter Size value"} {...field} />
+                  <div className="flex gap-x-4 items-centerp"> 
+                  <Input placeholder={"Enter Color value"} {...field} />
+                  <div style={{background:field.value}} className=" p-4 border rounded-full shadow-md"></div>
+                  </div>
                 </FormControl>
                
                 
@@ -189,4 +192,4 @@ const [Open ,setOpen] = useState(false);
  
 
 
-export default SizeForm;
+export default ColorForm;
