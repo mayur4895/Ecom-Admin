@@ -46,6 +46,12 @@ const routes=[
        
     },
     {   
+        href:`/${params.storeId}/products`,
+        label:"Products",
+        active:`/${params.storeId}/products` === pathname  
+       
+    },
+    {   
         href:`/${params.storeId}/settings`,
         label:"Settings",
         active:`/${params.storeId}/settings` === pathname  
