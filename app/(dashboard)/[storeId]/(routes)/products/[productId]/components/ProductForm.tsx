@@ -16,9 +16,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { auth } from "@clerk/nextjs";
-import { redirect, useParams, useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input"; 
+import {  useParams, useRouter } from "next/navigation";
 import { Category, Color, Image, Product, Size } from "@prisma/client";
 
 import axios from "axios";
@@ -35,15 +34,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
 const formSchema = z.object({
-  name: z.string().min(1),
-  images: z.object({ url: z.string() }).array(),
-  price: z.coerce.number().min(1),
+   name: z.string().min(1),
+   images: z.object({ url: z.string() }).array(),
+   price: z.coerce.number().min(1),
   categoryId: z.string().min(1),
-  sizeId: z.string().min(1),
-  storeId: z.string().min(1),
-  colorId: z.string().min(1),
-  isFeatured: z.boolean().default(false).optional(),
-  isArchived: z.boolean().default(false).optional(),
+   sizeId: z.string().min(1), 
+   colorId: z.string().min(1),
+   isFeatured: z.boolean().default(false).optional(),
+   isArchived: z.boolean().default(false).optional(),
 });
 
 interface ProductProps {
@@ -78,24 +76,29 @@ const ProductForm: React.FC<ProductProps> = ({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    //@ts-ignore 
     defaultValues: initialData
       ? {
           ...initialData,
           price: parseFloat(String(initialData.price)),
         }
-      : {
+      :{
           name: "",
-          images: [],
-          price: 0,
-          categoryId: "",
-          sizeId: "",
-          colorId: "",
-          isFeatured: false,
-          isArchived: false,
+           images: [],
+           price: 0,
+           categoryId: "",
+           sizeId: "",
+           colorId: "",
+          isFeatured: false, 
+           isArchived: false,
         },
-  });
-
+  }); 
+ 
+   
+ 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+     
+    
     try {
       setIsLoading(true);
       console.log(values);
@@ -105,7 +108,7 @@ const ProductForm: React.FC<ProductProps> = ({
           `/api/${params?.storeId}/products/${params?.productId}`,
           values
         );
-      } else {
+      } else { 
         await axios.post(`/api/${params?.storeId}/products/`, values);
       }
       toast({
@@ -126,7 +129,8 @@ const ProductForm: React.FC<ProductProps> = ({
       setIsLoading(false);
     }
   }
-
+   console.log(IsLoading);
+   
   async function DeleteStore() {
     try {
       setIsLoading(true);
@@ -148,6 +152,10 @@ const ProductForm: React.FC<ProductProps> = ({
     } finally {
       setIsLoading(false);
     }
+  }
+
+  const onFormSubmit = ()=>{
+    alert("hiii");
   }
 
   const [Open, setOpen] = useState(false);
@@ -182,8 +190,8 @@ const ProductForm: React.FC<ProductProps> = ({
         )}
       </div>
       <Separator className="mt-0" />
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+ {/* <Form {...form}>
+        <form  onSubmit={form.handleSubmit(onFormSubmit)} className="space-y-8">
           <FormField
             control={form.control}
             name="images"
@@ -378,12 +386,265 @@ const ProductForm: React.FC<ProductProps> = ({
             />
             
 
-          </div>
-          <Button type="submit">{action}</Button>
+          </div> 
+          <Button type="submit" >{action}</Button>
         </form>
-      </Form>
+      </Form> */}
+
+
+
+
+
+
+<Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+         
+      <FormField
+            control={form.control}
+            name="images"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Product Images</FormLabel>
+                <FormControl>
+                  <Imageuplode
+                    value={field.value.map((image) => image.url)}
+                    onChange={(url) => {
+                      field.onChange([...field.value, { url }]);
+                    }}
+                    onRemove={(url) =>
+                      field.onChange([
+                        ...field.value.filter((current) => current.url != url),
+                      ])
+                    }
+                    disabled={IsLoading}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+
+<div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Product Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder={"Enter Product Name"} {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+
+<FormField
+              control={form.control}
+              name="price"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Price</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder={"99.9"} {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+
+<FormField
+          control={form.control}
+          name="categoryId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>category</FormLabel>
+              <Select disabled={IsLoading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {
+                    categories.map((category)=>{
+                      return (
+                        <SelectItem key={category.id}
+                         value={category.id}
+                        >
+                          {category.name}
+                        </SelectItem>
+                      )
+                    })
+                  }
+              
+                </SelectContent>
+              </Select> 
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+<FormField
+          control={form.control}
+          name="sizeId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Size</FormLabel>
+              <Select disabled={IsLoading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a size" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {
+                    sizes.map((size)=>{
+                      return (
+                        <SelectItem key={size.id}
+                         value={size.id}
+                        >
+                          {size.name}
+                        </SelectItem>
+                      )
+                    })
+                  }
+              
+                </SelectContent>
+              </Select> 
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+
+<FormField
+          control={form.control}
+          name="colorId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Color</FormLabel>
+              <Select disabled={IsLoading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a Color" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {
+                    colors.map((color)=>{
+                      return (
+                        <SelectItem key={color.id}
+                         value={color.id}
+                        >
+                          {color.name}
+                        </SelectItem>
+                      )
+                    })
+                  }
+              
+                </SelectContent>
+              </Select> 
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+
+        
+        <FormField
+              control={form.control}
+              name="isFeatured"
+              render={({ field }) => (
+                <FormItem> 
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                  <FormControl>  
+                    <div className=" flex items-center gap-x-4">
+                      
+                    <Checkbox id="featured" checked={field.value} onCheckedChange={field.onChange}/>
+                    <div>
+                      
+                    <FormLabel htmlFor="featured">Featured</FormLabel><br />
+                    <FormDescription>This product will display on Home page</FormDescription>
+                    </div>
+                    </div>
+                  </FormControl>
+                  </FormItem>
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="isArchived"
+              render={({ field }) => (
+                <FormItem> 
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                  <FormControl>  
+                    <div className=" flex items-center gap-x-4">
+                      
+                    <Checkbox id="Archived" checked={field.value} onCheckedChange={field.onChange}/>
+                    
+                    <div>
+                      
+                    <FormLabel htmlFor="Archived">Archived</FormLabel><br />
+                    <FormDescription>This product will remove and not see anywhere</FormDescription>
+                    </div>
+                    </div>
+                  </FormControl>
+                  </FormItem>
+                </FormItem>
+              )}
+            />
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
+
+
+
+
+
     </div>
   );
 };
 
 export default ProductForm;
+
+
+ 

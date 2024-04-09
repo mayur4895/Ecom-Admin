@@ -26,9 +26,26 @@ export   async function POST(req:Request,{params}:{params:{storeId:string}}) {
 
 
          } = await req.json();
-         if(!name || !images || !price || !categoryId || !colorId || !sizeId || !isFeatured || !isArchived){
-           return new NextResponse("required fields" ,{status:400})
-         }
+       
+      if(!name){
+        return new NextResponse("name is required" ,{status:400})
+      }
+      if(!images){
+        return new NextResponse("images is required" ,{status:400})
+      }
+      if(!price){
+        return new NextResponse("price is required" ,{status:400})
+      }
+      if(!categoryId){
+        return new NextResponse("categoryId is required" ,{status:400})
+      }
+      if(!colorId){
+        return new NextResponse("colorId is required" ,{status:400})
+      }
+      if(!sizeId){
+        return new NextResponse("sizeId is required" ,{status:400})
+      }
+       
    if(!params.storeId){
   return new NextResponse("storeId is required",{status:400})
    }
@@ -79,12 +96,49 @@ if(!storebyUser){
 export   async function GET(req:Request,{params}:{params:{storeId:string}}) {
 
   try { 
+
+    const {searchParams} = new URL(req.url);
+
+    const categoryId = searchParams.get('categoryId') || undefined;
+    const colorId = searchParams.get('colorId') || undefined;
+    const sizeId = searchParams.get('sizeId') || undefined;
+    const isFeatured =searchParams.get('isFeatured') ;
+
+    console.log(categoryId);
+    console.log(colorId);
+    console.log(sizeId);
+    console.log(isFeatured);
+    
+    
+
   
 if(!params.storeId){
 return new NextResponse("storeId is required",{status:400})
 }  
 
-   const products = await  prismadb.product.findMany({where: {storeId:params.storeId}});
+console.log(params.storeId);
+
+   const products = await  prismadb.product.findMany({ 
+    where:{
+    storeId:params.storeId,
+    // categoryId,
+    // colorId,
+    // sizeId, 
+    // isFeatured:isFeatured ? true :undefined,
+    // isArchived:false
+  },include:{
+    images:true,
+    color:true,
+    size:true,
+    category:true
+  },orderBy:{
+    createdAt: 'desc'
+  }
+
+});
+
+console.log(products);
+
 
    return   NextResponse.json(products);
   } catch (error) {

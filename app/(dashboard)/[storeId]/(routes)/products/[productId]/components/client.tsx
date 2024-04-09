@@ -44,7 +44,7 @@ const ProductClient = ({
      </div>
      
      <Separator/>
-       <DataTable searchKey='label' columns={columns} data={products}/>
+       <DataTable searchKey='name' columns={columns} data={products}/>
        
 
 

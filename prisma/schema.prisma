@@ -87,8 +87,8 @@ model Product {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   storeId    String   @db.ObjectId
   store      Store    @relation("StoreToProduct", fields: [storeId], references: [id])
-  isFeatured Boolean
-  isArchived Boolean
+  isFeatured Boolean?
+  isArchived Boolean?
   name       String
   price  Int
   categoryId String   @db.ObjectId
