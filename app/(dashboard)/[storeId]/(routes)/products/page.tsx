@@ -29,7 +29,7 @@ const products = await prismadb.product.findMany({
   }
 })
 
-
+//@ts-ignore
 const formatedProducts:ProductDataType[] = products.map((item)=>{
   return {
     id:item.id,

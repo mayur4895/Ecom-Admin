@@ -19,7 +19,7 @@ export const columns: ColumnDef<ProductDataType>[] = [
    
   {
     accessorKey: "name",
-    header: "Name",
+    header: "Name", 
   },
   {
     accessorKey: "price",
@@ -33,7 +33,7 @@ export const columns: ColumnDef<ProductDataType>[] = [
   },{
     accessorKey: "color",
     header: "Color",
-    cell:({row})=><div className="flex gap-x-4 items-center w-40 justify-between">
+    cell:({row})=><div className="flex gap-x-4 items-center w-32 justify-between">
     {row.original.color}
     <div>
     <div style={{background:row.original.color}} className=" p-4 border rounded-full shadow-md"></div>

@@ -23,6 +23,7 @@ model Store {
 
   colors Color[] @relation("StoreToColor")
 
+  orders    Order[]   @relation("StoreToOrder")
   products  Product[] @relation("StoreToProduct")
   sizes     Size[]    @relation("StoreToSize")
   createdAt DateTime  @default(now())
@@ -90,18 +91,19 @@ model Product {
   isFeatured Boolean?
   isArchived Boolean?
   name       String
-  price  Int
+  price      Int
   categoryId String   @db.ObjectId
-  category   Category @relation( "CategoryToProduct", fields: [categoryId], references: [id])
+  category   Category @relation("CategoryToProduct", fields: [categoryId], references: [id])
 
   sizeId String @db.ObjectId
   size   Size   @relation(fields: [sizeId], references: [id])
 
-  colorId String  @db.ObjectId
-  color   Color   @relation(fields: [colorId], references: [id])
-  images  Image[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  colorId    String      @db.ObjectId
+  color      Color       @relation(fields: [colorId], references: [id])
+  images     Image[]
+  orderItems OrderItem[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 
   @@index([sizeId])
   @@index([categoryId])
@@ -117,5 +119,35 @@ model Image {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   @@index([productId])
+}
+
+model Order {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  storeId    String      @db.ObjectId
+  isPaid     Boolean     @default(false)
+  phone      String      @default("")
+  address    String      @default("")
+  store      Store       @relation("StoreToOrder", fields: [storeId], references: [id])
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([storeId])
+}
+
+model OrderItem {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String @db.ObjectId
+  order     Order  @relation(fields: [orderId], references: [id])
+  productId String @db.ObjectId
+
+  product Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([orderId])
 }
