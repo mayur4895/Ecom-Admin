@@ -42,7 +42,7 @@ export const CellAction:React.FC<cellActionProps> = ({
        await axios.delete(`/api/${params?.storeId}/products/${data.id}`)
        toast({
         variant:"success",
-        title: "Billboard deleted successfully"
+        title: "Product deleted successfully"
        }) 
        window.location.assign(`/${params?.storeId}/products`) 
        
@@ -80,7 +80,7 @@ export const CellAction:React.FC<cellActionProps> = ({
               onClick={() => navigator.clipboard.writeText(data.id)}
             >
                 <LuCopy/>
-              Copy Billboard ID
+              Copy Product ID
     </DropdownMenuItem>
     <DropdownMenuItem className="flex gap-2"
     onClick={()=>{router.push(`/${params.storeId}/products/${data.id}`)}}
