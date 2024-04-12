@@ -121,11 +121,11 @@ console.log(params.storeId);
    const products = await  prismadb.product.findMany({ 
     where:{
     storeId:params.storeId,
-    // categoryId,
-    // colorId,
-    // sizeId, 
-    // isFeatured:isFeatured ? true :undefined,
-    // isArchived:false
+    categoryId,
+    colorId,
+    sizeId, 
+    isFeatured:isFeatured ? true :undefined,
+    isArchived:false
   },include:{
     images:true,
     color:true,
