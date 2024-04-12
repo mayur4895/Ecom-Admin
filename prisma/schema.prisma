@@ -91,6 +91,7 @@ model Product {
   isFeatured Boolean?
   isArchived Boolean?
   name       String
+  desc       String
   price      Int
   categoryId String   @db.ObjectId
   category   Category @relation("CategoryToProduct", fields: [categoryId], references: [id])

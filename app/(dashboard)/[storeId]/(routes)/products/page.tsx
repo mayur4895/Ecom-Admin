@@ -34,6 +34,7 @@ const formatedProducts:ProductDataType[] = products.map((item)=>{
   return {
     id:item.id,
     name:item.name,  
+    desc:item.desc,
     isArchived: item.isArchived,
     isFeatured: item.isFeatured,
     color:item.color.value,

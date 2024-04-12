@@ -12,6 +12,7 @@ export async function PATCH(req:Request, {params}:{params:{  productId:string , 
   
     const {
       name,
+      desc,
       images,
       price,
       categoryId,
@@ -26,6 +27,10 @@ export async function PATCH(req:Request, {params}:{params:{  productId:string , 
    
       if(!name){
         return new NextResponse("name is required" ,{status:400})
+      }
+      
+      if(!desc){
+        return new NextResponse("desc is required" ,{status:400})
       }
       if(!images){
         return new NextResponse("images is required" ,{status:400})
@@ -63,6 +68,7 @@ id:params.productId,
   },
   data:{
     name, 
+    desc,
     price,
     categoryId,
     colorId,

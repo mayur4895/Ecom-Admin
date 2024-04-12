@@ -16,6 +16,7 @@ export   async function POST(req:Request,{params}:{params:{storeId:string}}) {
 
          const {
           name,
+          desc,
           images,
           price,
           categoryId,
@@ -29,6 +30,9 @@ export   async function POST(req:Request,{params}:{params:{storeId:string}}) {
        
       if(!name){
         return new NextResponse("name is required" ,{status:400})
+      }
+      if(!desc){
+        return new NextResponse("desc is required" ,{status:400})
       }
       if(!images){
         return new NextResponse("images is required" ,{status:400})
@@ -64,6 +68,7 @@ if(!storebyUser){
          
         data:{
           name,
+          desc,
           storeId:params.storeId,
           images:{
             createMany:{
@@ -115,8 +120,7 @@ export   async function GET(req:Request,{params}:{params:{storeId:string}}) {
 if(!params.storeId){
 return new NextResponse("storeId is required",{status:400})
 }  
-
-console.log(params.storeId);
+ 
 
    const products = await  prismadb.product.findMany({ 
     where:{

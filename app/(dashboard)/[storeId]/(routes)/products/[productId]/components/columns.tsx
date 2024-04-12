@@ -6,6 +6,7 @@ import { CellAction } from "./cell-actions";
 export type ProductDataType = {
   id: string;
   name: string;
+  desc:string;
   isFeatured: boolean;
   color: string;
   size: string;
@@ -19,7 +20,13 @@ export const columns: ColumnDef<ProductDataType>[] = [
    
   {
     accessorKey: "name",
-    header: "Name", 
+    header: "Name",   
+    cell:({row})=><div className="w-max-40 truncate">{row.original.name}</div>
+  },
+  {
+    accessorKey: "desc",
+    header: "Description", 
+    cell:({row})=><div className=" w-auto max-w-40 truncate">{row.original.desc}</div>
   },
   {
     accessorKey: "price",
@@ -50,6 +57,7 @@ export const columns: ColumnDef<ProductDataType>[] = [
   {
     accessorKey: "createdAt",
     header: "Date",
+    cell:({row})=><div className=" whitespace-nowrap ">{row.original.createdAt}</div>
   },
   {
     id:"Actions",
