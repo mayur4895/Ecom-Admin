@@ -102,15 +102,15 @@ export async function GET(req:Request, {params}:{params:{categoryId:string, stor
     try {  
         if(!params.categoryId){
             return new NextResponse("categoryId is required",{status:400})
-        }
-console.log(params.categoryId);
+        } 
 
         
 
    const category = await prismadb.category.findFirst({
        where:{
-           id:params.categoryId,   
-       }
+           id:params.categoryId, 
+             
+       } ,   include:{billboard:true}
    }) 
     
    return  NextResponse.json(category,{status:200});

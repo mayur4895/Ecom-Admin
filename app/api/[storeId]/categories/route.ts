@@ -19,8 +19,7 @@ export   async function POST(req:Request,{params}:{params:{storeId:string ,billb
            return new NextResponse("name is required" ,{status:400})
          }
 
-
-         console.log(billboardId);
+ 
          
    if(!params.storeId){
   return new NextResponse("storeId is required",{status:400})
@@ -64,7 +63,11 @@ if(!params.storeId){
 return new NextResponse("storeId is required",{status:400})
 }  
 
-   const billboards = await  prismadb.category.findMany({where: {storeId:params.storeId}});
+   const billboards = await  prismadb.category.findMany({
+    where: {storeId:params.storeId},
+ 
+  
+  });
 
    return   NextResponse.json(billboards);
   } catch (error) {
