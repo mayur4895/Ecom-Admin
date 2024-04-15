@@ -1,11 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import BillbaordClient from './components/client'
-import prismadb from '@/lib/prismadb'
-import axios from 'axios';
-import { useParams } from 'next/navigation';
-import { Separator } from '@/components/ui/separator';
-import { DataTable } from '@/components/ui/data-table';
-import { OrderDataType, columns } from './components/columns';
+import prismadb from '@/lib/prismadb' 
+import { OrderDataType } from './components/columns';
 import {format} from "date-fns";
 import { formatter } from '@/lib/utils';
 

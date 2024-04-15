@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import Heading from "@/components/ui/Heading";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,10 +16,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { auth } from "@clerk/nextjs";
-import { redirect, useParams, useRouter } from "next/navigation"; 
-import { Billboard, Category, Store } from "@prisma/client";
+import { Input } from "@/components/ui/input" 
+import {   useParams } from "next/navigation"; 
+import { Billboard, Category } from "@prisma/client";
 import {
   Select,
   SelectContent,
@@ -29,14 +28,11 @@ import {
 } from "@/components/ui/select"
 
 import axios from "axios";
-import { PiTrashSimpleBold } from "react-icons/pi";
- 
-import useOrigin from "@/hooks/use-origin";
+import { PiTrashSimpleBold } from "react-icons/pi"; 
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
 import AlertDilog from "@/components/Modals/alert-moal";
-import ActionTooltip from "@/components/Tooltip"; 
-import Imageuplode from "@/components/ui/image-uplode";
+import ActionTooltip from "@/components/Tooltip";  
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -53,10 +49,8 @@ interface CategoryProps {
    
 }
 
- const CategoryForm:React.FC<CategoryProps> = ({initialData ,billboards}) => {
-     const origin = useOrigin();
-     const params = useParams();
-    const router = useRouter();
+ const CategoryForm:React.FC<CategoryProps> = ({initialData ,billboards}) => { 
+     const params = useParams(); 
     const { toast } = useToast()
   const [IsLoading,setIsLoading] = useState(false);
  

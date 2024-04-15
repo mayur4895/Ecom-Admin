@@ -1,4 +1,4 @@
-import { ColumnDef } from "@tanstack/react-table"
+'use client'
 import { BillboardDataType } from "./columns"
 import {
     DropdownMenu,
@@ -9,7 +9,7 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 import { BsThreeDotsVertical } from "react-icons/bs"
-import { LuCopy, LuFileEdit, LuPen, LuTrash } from "react-icons/lu"
+import { LuCopy, LuPen, LuTrash } from "react-icons/lu"
 import { useParams, useRouter } from "next/navigation"
 import axios from "axios"
 import { useToast } from "@/components/ui/use-toast"

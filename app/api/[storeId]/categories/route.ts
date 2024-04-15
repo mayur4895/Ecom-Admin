@@ -1,7 +1,6 @@
 
 import prismadb from '@/lib/prismadb';
-import { auth } from '@clerk/nextjs';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { auth } from '@clerk/nextjs'; 
 import { NextResponse } from 'next/server';
 
 export   async function POST(req:Request,{params}:{params:{storeId:string ,billboardId:string}}) {

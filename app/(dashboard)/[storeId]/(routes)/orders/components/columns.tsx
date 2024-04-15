@@ -1,6 +1,4 @@
-"use client"
-
-import { OrderItem } from "@prisma/client";
+"use client" 
 import { ColumnDef } from "@tanstack/react-table" 
  
 export type OrderDataType = {

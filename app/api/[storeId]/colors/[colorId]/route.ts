@@ -34,8 +34,7 @@ const color = await prismadb.color.updateMany({
         value,
         storeId:params.storeId
     }
-})
-console.log("Updated color",color);
+}) 
 
 return  NextResponse.json(color,{status:200});
 

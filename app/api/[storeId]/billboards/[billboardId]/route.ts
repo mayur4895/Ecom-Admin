@@ -27,16 +27,14 @@ const storebyUser = await prismadb.store.findFirst({
     return new NextResponse("unauthorized" ,{status:403});
   }
   
-
-console.log(label); 
+ 
 const billbaord = await prismadb.billboard.updateMany({
     data:{
         label,
         imageUrl,
         storeId:params.storeId
     }
-})
-console.log("Updated billboard",billbaord);
+}) 
 
 return  NextResponse.json(billbaord,{status:200});
 

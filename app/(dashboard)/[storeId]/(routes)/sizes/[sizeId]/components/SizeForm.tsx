@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Heading from "@/components/ui/Heading";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,16 +9,13 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
-  FormControl,
-  FormDescription,
+  FormControl, 
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage,
+  FormLabel, 
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { auth } from "@clerk/nextjs";
-import { redirect, useParams, useRouter } from "next/navigation"; 
+import { Input } from "@/components/ui/input"; 
+import { useParams, useRouter } from "next/navigation"; 
 import { Size, Store } from "@prisma/client";
  
 import axios from "axios";
@@ -28,8 +25,7 @@ import useOrigin from "@/hooks/use-origin";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
 import AlertDilog from "@/components/Modals/alert-moal";
-import ActionTooltip from "@/components/Tooltip"; 
-import Imageuplode from "@/components/ui/image-uplode";
+import ActionTooltip from "@/components/Tooltip";  
 
 const formSchema = z.object({
   name: z.string().min(1, {

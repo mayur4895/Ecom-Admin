@@ -1,7 +1,6 @@
 
 import prismadb from '@/lib/prismadb';
-import { auth } from '@clerk/nextjs';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { auth } from '@clerk/nextjs'; 
 import { NextResponse } from 'next/server';
 
 export   async function POST(req:Request,{params}:{params:{storeId:string}}) {
@@ -108,11 +107,7 @@ export   async function GET(req:Request,{params}:{params:{storeId:string}}) {
     const colorId = searchParams.get('colorId') || undefined;
     const sizeId = searchParams.get('sizeId') || undefined;
     const isFeatured =searchParams.get('isFeatured') ;
-
-    console.log(categoryId);
-    console.log(colorId);
-    console.log(sizeId);
-    console.log(isFeatured);
+ 
     
     
 

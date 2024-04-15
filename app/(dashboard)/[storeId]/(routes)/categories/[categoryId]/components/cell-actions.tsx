@@ -1,4 +1,4 @@
-import { ColumnDef } from "@tanstack/react-table" 
+'use client'
 import {
     DropdownMenu,
     DropdownMenuContent,

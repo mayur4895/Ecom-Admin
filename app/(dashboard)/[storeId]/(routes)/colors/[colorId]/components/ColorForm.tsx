@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Heading from "@/components/ui/Heading";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,26 +10,19 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { auth } from "@clerk/nextjs";
-import { redirect, useParams, useRouter } from "next/navigation"; 
-import { Color, Size, Store } from "@prisma/client";
- 
+import { Input } from "@/components/ui/input"; 
+import { useParams, useRouter } from "next/navigation"; 
+import { Color} from "@prisma/client";
 import axios from "axios";
 import { PiTrashSimpleBold } from "react-icons/pi";
- 
-import useOrigin from "@/hooks/use-origin";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
 import AlertDilog from "@/components/Modals/alert-moal";
-import ActionTooltip from "@/components/Tooltip"; 
-import Imageuplode from "@/components/ui/image-uplode";
+import ActionTooltip from "@/components/Tooltip";  
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -45,8 +38,7 @@ interface ColorProps {
 } 
 
 
- const ColorForm:React.FC<ColorProps> = ({initialData}) => {
-     const origin = useOrigin();
+ const ColorForm:React.FC<ColorProps> = ({initialData}) => { 
      const params = useParams();
     const router = useRouter();
     const { toast } = useToast()

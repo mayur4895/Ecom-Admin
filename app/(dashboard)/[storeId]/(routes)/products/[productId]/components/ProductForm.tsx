@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Heading from "@/components/ui/Heading";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,8 +30,7 @@ import AlertDilog from "@/components/Modals/alert-moal";
 import ActionTooltip from "@/components/Tooltip";
 import Imageuplode from "@/components/ui/image-uplode";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox"; 
 
 const formSchema = z.object({
    name: z.string().min(1),

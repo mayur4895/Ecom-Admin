@@ -16,10 +16,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { auth } from "@clerk/nextjs";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
-import prismadb from "@/lib/prismadb";
+import { Input } from "@/components/ui/input"; 
+import { useRouter } from "next/navigation"; 
 import { Store } from "@prisma/client";
 import { useToast } from "./ui/use-toast";
 import axios from "axios";

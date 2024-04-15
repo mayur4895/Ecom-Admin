@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
 import BillbaordClient from './[billboardId]/components/client'
 import prismadb from '@/lib/prismadb'
-import axios from 'axios';
-import { useParams } from 'next/navigation';
-import { Separator } from '@/components/ui/separator';
-import { DataTable } from '@/components/ui/data-table';
 import { BillboardDataType, columns } from './[billboardId]/components/columns';
 import {format} from "date-fns";
 

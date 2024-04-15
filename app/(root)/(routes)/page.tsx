@@ -1,9 +1,6 @@
-'use client'
-import StoreModal from '@/components/Modals/store-modal'
-import Modal from '@/components/ui/modal'
-import {  useModal } from '@/hooks/use-modal-store'
-import prismadb from '@/lib/prismadb'
-import React, { useEffect, useState } from 'react'
+'use client' 
+import {  useModal } from '@/hooks/use-modal-store' 
+import React, { useEffect } from 'react'
 
 const Setuppage = () => {
 

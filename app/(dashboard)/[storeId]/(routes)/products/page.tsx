@@ -1,9 +1,5 @@
-import React, { useState } from 'react' 
-import prismadb from '@/lib/prismadb'
-import axios from 'axios';
-import { useParams } from 'next/navigation';
-import { Separator } from '@/components/ui/separator';
-import { DataTable } from '@/components/ui/data-table'; 
+import React from 'react' 
+import prismadb from '@/lib/prismadb' 
 import {format} from "date-fns";
 import { ProductDataType } from './[productId]/components/columns';
 import ProductClient from './[productId]/components/client';

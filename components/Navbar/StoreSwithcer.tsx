@@ -1,15 +1,13 @@
 'use client'
 import React, { useState } from 'react'
 import {
-    Command,
-    CommandDialog,
+    Command, 
     CommandEmpty,
     CommandGroup,
     CommandInput,
     CommandItem,
     CommandList,
-    CommandSeparator,
-    CommandShortcut,
+    CommandSeparator, 
   } from "@/components/ui/command"
   import {
     Popover,
@@ -18,23 +16,21 @@ import {
   } from "@/components/ui/popover"
   
 import { Button } from '../ui/button'
-import { AiTwotoneShop } from "react-icons/ai";
-import { store } from '@prisma/client' 
+import { AiTwotoneShop } from "react-icons/ai"; 
 import { useParams, useRouter } from 'next/navigation'
-import { PiCaretUpDownThin } from "react-icons/pi";
-import { CheckIcon } from '@radix-ui/react-icons'
+import { PiCaretUpDownThin } from "react-icons/pi"; 
 import { cn } from '@/lib/utils'
-import { IoIosAddCircleOutline } from "react-icons/io";
-import StoreModal from '../Modals/store-modal'
+import { IoIosAddCircleOutline } from "react-icons/io"; 
 import { PiCheckThin } from "react-icons/pi";
 
 import { CiShop } from "react-icons/ci";
 import { useModal } from '@/hooks/use-modal-store'
+import { Store } from '@prisma/client'
 
  
 type PopoverTriggerProps =  React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 interface StoreSwitcherProps extends PopoverTriggerProps{
-    items:store[];
+    items:Store[];
 }
 
 const StoreSwithcer = ({
