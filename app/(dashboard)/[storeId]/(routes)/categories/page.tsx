@@ -26,8 +26,7 @@ billboard:true
     createdAt: 'desc'
   }
 })
-
-console.log(Categories);
+ 
 
 
 

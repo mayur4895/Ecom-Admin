@@ -34,8 +34,7 @@ const category = await prismadb.category.updateMany({
         billboardId,
         storeId:params.storeId
     }
-})
-console.log("Updated category",category);
+}) 
 
 return  NextResponse.json(category,{status:200});
 
