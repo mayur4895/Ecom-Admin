@@ -66,10 +66,10 @@ export function DataTable<TData, TValue>({
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className="dark:border-gray-600/75">
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="border-none">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -88,6 +88,7 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+className="dark:border-gray-600/75"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

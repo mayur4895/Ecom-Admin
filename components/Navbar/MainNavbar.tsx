@@ -3,7 +3,17 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import React from 'react'
-
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+  } from "@/components/ui/sheet"
+import { BsGrid3X3, BsGridFill, BsMenuButton } from 'react-icons/bs';
+import { LuGrid, LuMenu } from 'react-icons/lu';
+  
 
  
 
@@ -16,9 +26,9 @@ const params = useParams();
 
 const routes=[
     {   
-        href:`/${params.storeId}/overview`,
+        href:`/${params.storeId}/`,
         label:"Overview",
-        active:`/${params.storeId}/overview` === pathname  
+        active:`/${params.storeId}` === pathname  
        
     },
     {   
@@ -65,11 +75,12 @@ const routes=[
     }
 ]
   return (
-    <div className={cn("flex item-center lg:mx-6  space-x-4",className)}>
+    <>
+    <div className={cn("lg:flex item-center lg:mx-6  space-x-4 hidden",className)}>
        {
         routes.map((route,index)=>{
             return(  <Link  
-             className={cn("text-zinc-500 text-sm", route.active ? "text-zinc-900" : "")}
+                className={cn("text-zinc-500 dark:text-zinc-400 text-sm", route.active ? "text-zinc-900 dark:text-zinc-100" : "")}
             key={index} 
             href={route.href}>
                 {route.label}
@@ -79,6 +90,39 @@ const routes=[
        }
      
     </div>
+    <div className=' ml-auto mr-5'>
+    <Sheet>
+  <SheetTrigger className='lg:hidden text-xl items-center  h-16 '><BsGridFill/></SheetTrigger>
+   
+  <SheetContent>
+  <SheetHeader className='mb-5'>
+    <SheetTitle>
+        <Link href={`/${params.storeId}/`}>
+                             MStore 
+            
+        </Link>
+    </SheetTitle>
+  </SheetHeader> 
+  <div className={cn("flex item-center lg:mx-6 space-y-4 flex-col",className)}>
+       {
+        routes.map((route,index)=>{
+            return(  <Link  
+             className={cn("text-zinc-500 text-sm dark:text-zinc-400", route.active ? "text-zinc-900 dark:text-zinc-100" : "")}
+            key={index} 
+            href={route.href}>
+                {route.label}
+                </Link>
+            )
+        })
+       }
+     
+    </div>
+  </SheetContent>
+</Sheet>
+
+    </div>
+    </>
+
   )
 }
 

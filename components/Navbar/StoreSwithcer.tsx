@@ -77,11 +77,11 @@ const onSelectStore = (store:{label:string, value:string})=>{
       formatedItems.map((store)=>{
         return(
           <CommandItem key={store.value} onSelect={()=>onSelectStore(store)}>
-             <CiShop size={18} className='text-zinc-500 mr-2' />
-             <span className='ml-2 text-gray-600  w-[150px]  truncate'>{store?.label}</span>
+             <CiShop size={18} className='text-zinc-500 dark:text-zinc-400 mr-2' />
+             <span className='ml-2 text-gray-600 dark:text-zinc-400 w-[150px]  truncate'>{store?.label}</span>
          <PiCheckThin   size={20} className={cn("  ml-2",
          
-         currentStore?.value === store.value ? " opacity-100 ":"opacity-0")}/>
+         currentStore?.value === store.value ? " opacity-100  ":"opacity-0")}/>
           </CommandItem>
           
         )
@@ -90,7 +90,7 @@ const onSelectStore = (store:{label:string, value:string})=>{
     </CommandGroup>
     <CommandSeparator />
     <CommandGroup  >
-      <CommandItem className='text-gray-600' onSelect={()=>{
+      <CommandItem className='text-gray-600 dark:text-zinc-400' onSelect={()=>{
           setOpen(false)
            onOpen('CreateStore');
       }}>

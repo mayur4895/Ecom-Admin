@@ -5,6 +5,7 @@ import StoreSwithcer from './StoreSwithcer'
 import { UserButton, auth } from '@clerk/nextjs'
 import { redirect, useRouter } from 'next/navigation'
 import prismadb from '@/lib/prismadb'
+import { ModeToggle } from '../ModeToggle'
 
 const Navbar = async() => {
  
@@ -22,10 +23,12 @@ const Navbar = async() => {
   return (
     <div className='flex  h-16 items-center  px-4 justify border-b '>
        <StoreSwithcer  items={stores} />
-      <MainNavbar className="mx-6"/>
-      <div className='ml-auto flex space-x-4'>
+      <MainNavbar /> 
+      <div className='flex items-center gap-x-4'>
+      <ModeToggle/>
       <UserButton/>
       </div>
+       
     </div>
   )
 }

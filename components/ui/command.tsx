@@ -117,7 +117,7 @@ const CommandItem = React.forwardRef<
   <CommandPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex  select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent text-foreground  cursor-pointer  ",
+      "relative flex  select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent text-foreground dark:text-zinc-400  cursor-pointer  ",
       className
     )}
     {...props}
@@ -133,7 +133,7 @@ const CommandShortcut = ({
   return (
     <span
       className={cn(
-        "ml-auto text-xs tracking-widest text-muted-foreground",
+        "ml-auto text-xs tracking-widest text-foreground dark:text-zinc-400",
         className
       )}
       {...props}
