@@ -28,7 +28,7 @@ interface AlertDilogProps{
   const [Open,setOpen] = useState(false);
     useEffect(()=>{
         setOpen(true);
-    })
+    },[setOpen])
 
     if(!Open){
         return null;

@@ -96,7 +96,7 @@ const SettingForm = ({ store }: SettingFormProps) => {
     if (store.name) {
       form.setValue("name", store.name);
     }
-  }, [form]);
+  }, [form,store]);
 
 
 const [Open ,setOpen] = useState(false);
