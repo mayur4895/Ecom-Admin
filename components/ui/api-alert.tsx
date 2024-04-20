@@ -18,9 +18,7 @@ interface ApialertProps{
  const TextMap:Record<ApialertProps["variant"] ,string> = {
     admin: "Admin",
     public: "Public"
- }
-
- 
+ } 
  const VarientMap:Record<ApialertProps["variant"], BadgeProps['variant']> = {
     admin: "destructive",
     public: "secondary"
@@ -49,8 +47,8 @@ const onCopy = ()=>{
     }</Badge>
   </AlertTitle>
    
-  <AlertDescription className='flex items-center justify-between'>
-    <code>
+  <AlertDescription className='flex items-center   justify-between'>
+    <code className=' w-full truncate'>
         {description}
     </code>
     <ActionTooltip label='Copy' side='bottom' >

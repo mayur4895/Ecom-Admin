@@ -35,11 +35,11 @@ const OverViewPage = async({params}:OverViewPageProps) => {
       <div className="flex-1 p-8 pt-6">
         <Heading title="DashBoard" desc="Overview of Your Store" />
         <Separator />
-        <div className=" grid grid-cols-3 gap-x-4">
+        <div className=" grid md:grid-cols-3 grid-cols-2 sm:grid-cols-2 gap-x-4">
           <Card className="border-none ">
             <CardHeader className="flex flex-row  justify-between  items-center">
               <CardTitle>Revenue</CardTitle>
-              <CardDescription><LuIndianRupee/></CardDescription>
+              <CardDescription className="ml-3"><LuIndianRupee/></CardDescription>
             </CardHeader> 
             <CardContent>
                 <div className=" text-xl  font-bold">
@@ -50,7 +50,7 @@ const OverViewPage = async({params}:OverViewPageProps) => {
           <Card className="border-none">
             <CardHeader className="flex flex-row  justify-between  items-center">
               <CardTitle>Sales</CardTitle>
-              <CardDescription><BsCreditCard/></CardDescription>
+              <CardDescription className="ml-3"><BsCreditCard/></CardDescription>
             </CardHeader> 
             
             <CardContent>
@@ -63,7 +63,7 @@ const OverViewPage = async({params}:OverViewPageProps) => {
           <Card className="border-none  ">
             <CardHeader className="flex flex-row  justify-between items-center mb-0">
               <CardTitle className=" whitespace-nowrap">Product Stocks</CardTitle>
-              <CardDescription><LuStore/></CardDescription>
+              <CardDescription className="ml-3"><LuStore/></CardDescription>
             </CardHeader>  
             <CardContent >
                 <div className=" text-xl  font-bold">
