@@ -34,10 +34,10 @@ const OverViewPage = async({params}:OverViewPageProps) => {
     <div className="flex flex-col">
       <div className="flex-1 p-8 pt-6">
         <Heading title="DashBoard" desc="Overview of Your Store" />
-        <Separator />
-        <div className=" grid md:grid-cols-3 grid-cols-2 sm:grid-cols-2 gap-x-4">
-          <Card className="border-none ">
-            <CardHeader className="flex flex-row  justify-between  items-center">
+        <Separator className="my-3" />
+        <div className=" grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+          <Card >
+            <CardHeader className="flex flex-row  w-full justify-between  items-center">
               <CardTitle>Revenue</CardTitle>
               <CardDescription className="ml-3"><LuIndianRupee/></CardDescription>
             </CardHeader> 
@@ -47,8 +47,8 @@ const OverViewPage = async({params}:OverViewPageProps) => {
                 </div>
             </CardContent>
           </Card>
-          <Card className="border-none">
-            <CardHeader className="flex flex-row  justify-between  items-center">
+          <Card>
+            <CardHeader className="flex flex-row  w-full justify-between  items-center">
               <CardTitle>Sales</CardTitle>
               <CardDescription className="ml-3"><BsCreditCard/></CardDescription>
             </CardHeader> 
@@ -60,8 +60,8 @@ const OverViewPage = async({params}:OverViewPageProps) => {
             </CardContent>
           </Card>
 
-          <Card className="border-none  ">
-            <CardHeader className="flex flex-row  justify-between items-center mb-0">
+          <Card>
+            <CardHeader className="flex flex-row w-full justify-between items-center mb-0">
               <CardTitle className=" whitespace-nowrap">Product Stocks</CardTitle>
               <CardDescription className="ml-3"><LuStore/></CardDescription>
             </CardHeader>  
@@ -72,7 +72,7 @@ const OverViewPage = async({params}:OverViewPageProps) => {
             </CardContent>
           </Card>
         </div>
-        <Separator />
+        <Separator className="my-3" />
          
         <Card className="col-span-2 mt-2"> 
          <CardHeader>

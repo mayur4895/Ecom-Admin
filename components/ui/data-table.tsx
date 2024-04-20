@@ -69,7 +69,7 @@ export function DataTable<TData, TValue>({
             <TableRow key={headerGroup.id} className="dark:border-gray-600/75">
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} className="border-none">
+                  <TableHead key={header.id} className="border-none w-full">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
